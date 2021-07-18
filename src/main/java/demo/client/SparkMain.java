@@ -21,7 +21,7 @@ public class SparkMain {
         inputData.add(11.87);
         inputData.add(19.01);
 
-        //Use standalone spark local instance
+        //Use standalone spark local instance, * indicated multithreaded env, use cpu cores available
         SparkConf sparkConf = new SparkConf(false).setAppName("startingSpark").setMaster("local[*]");
         //Below config setting required to avoid error: System memory 259522560 must be at least 471859200.
         // Please increase heap size using the --driver-memory option or spark.driver.memory in Spark configuration.
@@ -29,6 +29,7 @@ public class SparkMain {
         JavaSparkContext context = new JavaSparkContext(sparkConf);
 
         JavaRDD<Double> inputRdd = context.parallelize(inputData);
+
 
         //see collect to avoid serialization exception on a multicore system
         //java.io.NotSerializableException: java.io.PrintStream
